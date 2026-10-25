@@ -1,0 +1,20 @@
+{
+  "name": "banana-quiz-server",
+  "version": "1.0.0",
+  "description": "Express server for Banana Quiz. Themes: interoperability and virtual identity. Portions generated with AI assistance (Cursor) - reviewed and understood by the author.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test:banana": "node scripts/testBananaApi.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2"
+  }
+}

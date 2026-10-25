@@ -1,0 +1,24 @@
+# Purpose: Tells Git which files must never be saved in the repository.
+# Theme: Version control
+# Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
+
+# Installed packages (recreated with npm install)
+node_modules/
+
+# Secret environment values (copy .env.example and fill in locally)
+.env
+.env.local
+.env.*.local
+
+# Built frontend files (recreated with npm run build)
+dist/
+dist-ssr/
+
+# Vite cache
+.vite/
+
+# Logs and OS junk
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
