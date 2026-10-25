@@ -1,0 +1,736 @@
+{
+  "info": {
+    "name": "Banana Quiz API",
+    "description": "Automatic tests for the Banana Quiz server. Run the whole collection from top to bottom with the Collection Runner. The server must be running at http://localhost:5000 and MongoDB must be connected. Postman stores the login cookie itself. Each run registers a new user, so it is safe to run again.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "email", "value": "" },
+    { "key": "username", "value": "" },
+    { "key": "password", "value": "123" }
+  ],
+  "item": [
+    {
+      "name": "1. Before login",
+      "item": [
+        {
+          "name": "Health",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const stamp = Date.now();",
+                  "pm.collectionVariables.set('email', 'postman.' + stamp + '@example.com');",
+                  "pm.collectionVariables.set('username', 'PM ' + String(stamp).slice(-6));",
+                  "pm.collectionVariables.set('password', '123');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('server is up and MongoDB is connected', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.success).to.eql(true);",
+                  "  pm.expect(body.database).to.eql('connected');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/health" }
+        },
+        {
+          "name": "Public top 3",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('preview works without login', function () {",
+                "  pm.response.to.have.status(200);",
+                "  pm.expect(pm.response.json().top).to.be.an('array');",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/preview" }
+        },
+        {
+          "name": "Game start without login",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('401 Please log in first', function () {",
+                "  pm.response.to.have.status(401);",
+                "  pm.expect(pm.response.json().message).to.eql('Please log in first');",
+                "});"
+              ]
+            }
+          }],
+          "protocolProfileBehavior": { "disableCookies": true },
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"difficulty\": \"easy\"\n}" },
+            "url": "{{baseUrl}}/api/game/start"
+          }
+        },
+        {
+          "name": "Leaderboard without login",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('leaderboard needs a login', function () {",
+                "  pm.response.to.have.status(401);",
+                "  pm.expect(pm.response.json().success).to.eql(false);",
+                "});"
+              ]
+            }
+          }],
+          "protocolProfileBehavior": { "disableCookies": true },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/leaderboard" }
+        },
+        {
+          "name": "Profile without login",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('profile needs a login', function () {",
+                "  pm.response.to.have.status(401);",
+                "});"
+              ]
+            }
+          }],
+          "protocolProfileBehavior": { "disableCookies": true },
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/me" }
+        }
+      ]
+    },
+    {
+      "name": "2. Register and login",
+      "item": [
+        {
+          "name": "Register bad email",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('bad email is rejected', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().success).to.eql(false);",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"Aman Aryal\",\n  \"email\": \"not-an-email\",\n  \"password\": \"123\"\n}" },
+            "url": "{{baseUrl}}/api/auth/register"
+          }
+        },
+        {
+          "name": "Register empty password",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('empty password is rejected', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().message).to.eql('Please enter a password.');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"Aman Aryal\",\n  \"email\": \"empty.pass@example.com\",\n  \"password\": \"\"\n}" },
+            "url": "{{baseUrl}}/api/auth/register"
+          }
+        },
+        {
+          "name": "Register a new player",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('spaced name and short password are accepted', function () {",
+                "  pm.response.to.have.status(201);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.success).to.eql(true);",
+                "  pm.expect(body.user.username).to.eql(pm.collectionVariables.get('username'));",
+                "  pm.expect(JSON.stringify(body)).to.not.include('passwordHash');",
+                "  pm.expect(JSON.stringify(body)).to.not.include('\"password\"');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"{{username}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}" },
+            "url": "{{baseUrl}}/api/auth/register"
+          }
+        },
+        {
+          "name": "Register the same email again",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('duplicate account is 409', function () {",
+                "  pm.response.to.have.status(409);",
+                "  pm.expect(pm.response.json().success).to.eql(false);",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"{{username}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}" },
+            "url": "{{baseUrl}}/api/auth/register"
+          }
+        },
+        {
+          "name": "Login wrong password",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('wrong password is rejected', function () {",
+                "  pm.response.to.have.status(401);",
+                "  pm.expect(pm.response.json().message).to.eql('Email or password is incorrect.');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"wrong-password\"\n}" },
+            "url": "{{baseUrl}}/api/auth/login"
+          }
+        },
+        {
+          "name": "Login",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('login sets the cookie and hides the password', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.success).to.eql(true);",
+                "  pm.expect(body.user.email).to.eql(pm.collectionVariables.get('email'));",
+                "  pm.expect(JSON.stringify(body)).to.not.include('passwordHash');",
+                "  const cookie = pm.response.headers.get('Set-Cookie') || '';",
+                "  pm.expect(cookie).to.include('token=');",
+                "  pm.expect(cookie.toLowerCase()).to.include('httponly');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}" },
+            "url": "{{baseUrl}}/api/auth/login"
+          }
+        },
+        {
+          "name": "Who am I",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('cookie identifies the player', function () {",
+                "  pm.response.to.have.status(200);",
+                "  pm.expect(pm.response.json().user.username).to.eql(pm.collectionVariables.get('username'));",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/auth/me" }
+        }
+      ]
+    },
+    {
+      "name": "3. Game",
+      "item": [
+        {
+          "name": "Reject a bad level",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('unknown difficulty is 400', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().message).to.eql('Choose easy, medium, or hard.');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"difficulty\": \"extreme\"\n}" },
+            "url": "{{baseUrl}}/api/game/start"
+          }
+        },
+        {
+          "name": "Start Easy",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Easy hides the digit and uses the Easy rules', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(JSON.stringify(body)).to.not.include('\"solution\"');",
+                "  pm.expect(body.game.lives).to.eql(5);",
+                "  pm.expect(body.game.seconds).to.eql(60);",
+                "  pm.expect(body.game.hintsLeft).to.eql(2);",
+                "  pm.expect(body.game.round).to.eql(1);",
+                "  pm.expect(body.game.imageUrl).to.be.a('string');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"difficulty\": \"easy\"\n}" },
+            "url": "{{baseUrl}}/api/game/start"
+          }
+        },
+        {
+          "name": "Current puzzle",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('the same picture is returned without the digit', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(JSON.stringify(body)).to.not.include('\"solution\"');",
+                "  pm.expect(body.game.puzzleId).to.be.a('string');",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/game/puzzle" }
+        },
+        {
+          "name": "Reject two digits",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('only one digit is allowed', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().message).to.eql('Enter a single digit from 0 to 9.');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"guess\": \"12\"\n}" },
+            "url": "{{baseUrl}}/api/game/answer"
+          }
+        },
+        {
+          "name": "First hint",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('hint is even/odd or a range, never the digit', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.hint).to.be.a('string');",
+                "  pm.expect(body.cost).to.eql(5);",
+                "  pm.expect(body.hint).to.not.match(/is \\d/);",
+                "  pm.expect(JSON.stringify(body)).to.not.include('\"solution\"');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": "{{baseUrl}}/api/game/hint"
+          }
+        },
+        {
+          "name": "Second hint",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Easy allows a second hint', function () {",
+                "  pm.response.to.have.status(200);",
+                "  pm.expect(pm.response.json().game.hintsLeft).to.eql(0);",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": "{{baseUrl}}/api/game/hint"
+          }
+        },
+        {
+          "name": "Third hint rejected",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('no hints left', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().message).to.eql('No hints left on this level.');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": "{{baseUrl}}/api/game/hint"
+          }
+        },
+        {
+          "name": "Submit one digit",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('the server says correct or wrong and still hides the digit', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.correct).to.be.a('boolean');",
+                "  pm.expect(JSON.stringify(body)).to.not.include('\"solution\"');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"guess\": \"0\"\n}" },
+            "url": "{{baseUrl}}/api/game/answer"
+          }
+        },
+        {
+          "name": "Quit and save",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('the game is saved', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const result = pm.response.json().result;",
+                "  pm.expect(result.difficulty).to.eql('easy');",
+                "  pm.expect(result.score).to.be.a('number');",
+                "  pm.expect(result.accuracy).to.be.a('number');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": "{{baseUrl}}/api/game/finish"
+          }
+        },
+        {
+          "name": "Guess with no active game",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('a guess needs an active game', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().message).to.include('No active game');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"guess\": \"1\"\n}" },
+            "url": "{{baseUrl}}/api/game/answer"
+          }
+        },
+        {
+          "name": "Start Hard",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Hard has 1 life and 0 hints', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const game = pm.response.json().game;",
+                "  pm.expect(game.lives).to.eql(1);",
+                "  pm.expect(game.hintsLeft).to.eql(0);",
+                "  pm.expect(game.seconds).to.eql(15);",
+                "  pm.expect(JSON.stringify(pm.response.json())).to.not.include('\"solution\"');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"difficulty\": \"hard\"\n}" },
+            "url": "{{baseUrl}}/api/game/start"
+          }
+        },
+        {
+          "name": "Hard hint rejected",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Hard has no hints', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().message).to.eql('No hints left on this level.');",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": "{{baseUrl}}/api/game/hint"
+          }
+        },
+        {
+          "name": "One Hard guess",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('one wrong Hard guess ends the game, a correct one continues', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.correct).to.be.a('boolean');",
+                "  if (body.correct === false) {",
+                "    pm.expect(body.finished).to.eql(true);",
+                "    pm.expect(body.result.difficulty).to.eql('hard');",
+                "  }",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"guess\": \"7\"\n}" },
+            "url": "{{baseUrl}}/api/game/answer"
+          }
+        },
+        {
+          "name": "Close Hard if it is still open",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('Hard is saved, or it already ended', function () {",
+                "  pm.expect([200, 400]).to.include(pm.response.code);",
+                "});"
+              ]
+            }
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": "{{baseUrl}}/api/game/finish"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Scores",
+      "item": [
+        {
+          "name": "Profile",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('profile has level, points and recent games', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const profile = pm.response.json().profile;",
+                "  pm.expect(profile.username).to.eql(pm.collectionVariables.get('username'));",
+                "  pm.expect(profile.level).to.be.at.least(1);",
+                "  pm.expect(profile.bestByDifficulty).to.have.keys('easy', 'medium', 'hard');",
+                "  pm.expect(profile.recent).to.be.an('array');",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/me" }
+        },
+        {
+          "name": "Leaderboard all time",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('top 10 and my rank', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.leaderboard.length).to.be.at.most(10);",
+                "  pm.expect(body.myRank.rank).to.be.at.least(1);",
+                "  pm.expect(body.leaderboard[0].rank).to.eql(1);",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/leaderboard?difficulty=all&period=all" }
+        },
+        {
+          "name": "Leaderboard Hard today",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('filters are accepted', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.difficulty).to.eql('hard');",
+                "  pm.expect(body.period).to.eql('today');",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/leaderboard?difficulty=hard&period=today" }
+        },
+        {
+          "name": "Bad leaderboard filter",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('a bad filter is 400', function () {",
+                "  pm.response.to.have.status(400);",
+                "  pm.expect(pm.response.json().success).to.eql(false);",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/scores/leaderboard?difficulty=nope" }
+        }
+      ]
+    },
+    {
+      "name": "5. Old puzzle route",
+      "item": [
+        {
+          "name": "Public puzzle",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('old puzzle route hides the digit', function () {",
+                "  pm.response.to.have.status(200);",
+                "  const body = pm.response.json();",
+                "  pm.expect(body.imageUrl).to.be.a('string');",
+                "  pm.expect(JSON.stringify(body)).to.not.include('\"solution\"');",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/puzzle" }
+        }
+      ]
+    },
+    {
+      "name": "6. Logout",
+      "item": [
+        {
+          "name": "Logout",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('logout clears the cookie', function () {",
+                "  pm.response.to.have.status(200);",
+                "  pm.expect(pm.response.json().success).to.eql(true);",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "POST", "url": "{{baseUrl}}/api/auth/logout" }
+        },
+        {
+          "name": "Me after logout",
+          "event": [{
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('the cookie no longer works', function () {",
+                "  pm.response.to.have.status(401);",
+                "});"
+              ]
+            }
+          }],
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/auth/me" }
+        }
+      ]
+    }
+  ]
+}
