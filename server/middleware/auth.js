@@ -76,3 +76,4 @@ module.exports = {
   COOKIE_NAME,
   TOKEN_MAX_AGE_MS
 };
+

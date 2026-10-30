@@ -6,9 +6,15 @@
 
 import { useEffect, useState } from 'react';
 import { api } from '../api/api.js';
+import { GAME_MODES } from '../constants/gameModes.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { initials } from '../utils/initials.js';
 import { Loader } from '../components/Loader.jsx';
+
+function modeLabel(id) {
+  const mode = GAME_MODES.find((item) => item.id === id);
+  return mode ? mode.label : id;
+}
 
 export default function ProfilePage() {
   const { user, clearSession } = useAuth();
@@ -57,7 +63,7 @@ export default function ProfilePage() {
     <section className="card profile-card">
       <div className="profile-head">
         <p className="avatar large" aria-hidden="true">{initials(profile.username || (user && user.username))}</p>
-        <div>
+        <div className="profile-identity">
           <h1>{profile.username}</h1>
           <p className="eyebrow">{profile.rankTitle}</p>
           <p className="status">Level {profile.level}</p>
@@ -77,22 +83,34 @@ export default function ProfilePage() {
 
       <h2>Best by level</h2>
       <div className="stat-grid">
-        <div><span>Easy</span><strong>{profile.bestByDifficulty.easy}</strong></div>
-        <div><span>Medium</span><strong>{profile.bestByDifficulty.medium}</strong></div>
-        <div><span>Hard</span><strong>{profile.bestByDifficulty.hard}</strong></div>
+        <div className="stat-box"><span>Easy</span><strong>{profile.bestByDifficulty.easy}</strong></div>
+        <div className="stat-box"><span>Medium</span><strong>{profile.bestByDifficulty.medium}</strong></div>
+        <div className="stat-box"><span>Hard</span><strong>{profile.bestByDifficulty.hard}</strong></div>
       </div>
 
       <h2>Recent games</h2>
-      {profile.recent.length === 0 ? <p className="status">No games yet.</p> : null}
-      <ul className="recent">
-        {profile.recent.map((game) => (
-          <li key={game.id}>
-            <span>{game.difficulty}</span>
-            <strong>{game.score} pts</strong>
-            <span>{game.accuracy}%</span>
-          </li>
-        ))}
-      </ul>
+      {profile.recent.length === 0 ? <p className="status">No games yet.</p> : (
+        <div className="table-wrap">
+          <table className="board recent-board">
+            <thead>
+              <tr>
+                <th>Mode</th>
+                <th>Points</th>
+                <th>Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              {profile.recent.map((game) => (
+                <tr key={game.id}>
+                  <td data-label="Mode">{modeLabel(game.difficulty)}</td>
+                  <td data-label="Points">{game.score}</td>
+                  <td data-label="Accuracy">{game.accuracy}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </section>
   );
 }

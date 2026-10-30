@@ -86,7 +86,10 @@ export default function Navbar() {
     <>
       <aside className="sidebar">
         <Link className="brand" to="/" onClick={closeMenus}>🍌 Banana Quiz</Link>
-        <nav className="side-links">{links}</nav>
+        <nav className="side-links">
+          <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span> Home</NavLink>
+          {links}
+        </nav>
         <div className="side-foot">
           <button
             type="button"
@@ -110,12 +113,19 @@ export default function Navbar() {
         </div>
       ) : null}
 
-      <nav className="tab-bar" aria-label="Pages">
-        {user ? (
-          <>
-            <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span>Play</NavLink>
-            <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span>Board</NavLink>
-            <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span>Profile</NavLink>
+      <header className="mobile-top">
+        <Link className="brand" to="/" onClick={closeMenus}>🍌 Banana Quiz</Link>
+        <div className="mobile-top-tools">
+          <button
+            type="button"
+            className="sound-btn"
+            aria-label={muted ? 'Sound off' : 'Sound on'}
+            aria-pressed={muted}
+            onClick={handleToggleMute}
+          >
+            {muted ? '🔇' : '🔊'}
+          </button>
+          {user ? (
             <div className="avatar-wrap" ref={menuRef}>
               {/* EVENT: onClick (avatar) -> HANDLER: setDropdownOpen -> RESULT: profile menu opens */}
               <button
@@ -135,11 +145,23 @@ export default function Navbar() {
                 </div>
               ) : null}
             </div>
+          ) : null}
+        </div>
+      </header>
+
+      <nav className="tab-bar" aria-label="Pages">
+        {user ? (
+          <>
+            <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
+            <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span>Play</NavLink>
+            <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span>Board</NavLink>
+            <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span>Me</NavLink>
           </>
         ) : (
           <>
-            <NavLink to="/login" onClick={closeMenus}>Login</NavLink>
-            <NavLink to="/register" onClick={closeMenus}>Register</NavLink>
+            <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
+            <NavLink to="/login" onClick={closeMenus}><span aria-hidden="true">🔑</span>Login</NavLink>
+            <NavLink to="/register" onClick={closeMenus}><span aria-hidden="true">✎</span>Register</NavLink>
           </>
         )}
       </nav>
