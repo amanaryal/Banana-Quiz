@@ -1,7 +1,6 @@
 /*
  * Purpose: Three level cards. Starting a game asks the server to fetch a puzzle.
  * Theme: Event-driven programming and interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { useEffect, useState } from 'react';

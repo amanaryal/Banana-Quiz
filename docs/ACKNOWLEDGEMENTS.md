@@ -1,7 +1,6 @@
 <!--
 Purpose: Lists help that was not written only by the student. Edit this file in your own words before you submit.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Acknowledgements
@@ -10,7 +9,7 @@ Edit this page so it matches what you actually used. Hand this in only after you
 
 ## AI assistance
 
-- The project structure, server, React pages, comments, and the files in `docs/` were drafted with AI assistance in Cursor (Grok).
+- The project structure, server, React pages, comments, and the files in `docs/` were drafted with AI assistance.
 - The author is responsible for reading, running, and explaining every file. The university expects that explanation to be in the author's own words.
 
 ## External service

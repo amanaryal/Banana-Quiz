@@ -1,7 +1,6 @@
 /*
  * Purpose: One command starts the Express server and the React app.
  * Theme: Version control (project setup)
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * VS Code opens the Banana Quiz folder. "npm run dev" in that folder runs this file.
  * It then runs the same command inside server/ and inside client/.

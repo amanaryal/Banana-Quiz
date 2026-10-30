@@ -1,7 +1,6 @@
 /*
  * Purpose: A short burst of coloured squares when a game ends well.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { useEffect, useRef } from 'react';

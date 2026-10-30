@@ -1,7 +1,6 @@
 /*
  * Purpose: Checks the login cookie before a protected route runs.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Protected routes (must send 401 when the cookie is missing or expired):
  *   POST /api/puzzle/answer

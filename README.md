@@ -1,7 +1,6 @@
 <!--
 Purpose: How to run Banana Quiz Challenge, and where the main API routes are.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Banana Quiz Challenge

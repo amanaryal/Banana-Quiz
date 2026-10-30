@@ -1,7 +1,6 @@
 <!--
 Purpose: Shows the four parts of the system and how a guess travels between them.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Architecture

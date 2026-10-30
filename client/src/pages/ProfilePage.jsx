@@ -1,7 +1,6 @@
 /*
  * Purpose: The signed-in player's level, best scores, and last five games.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { useEffect, useState } from 'react';

@@ -1,7 +1,6 @@
 /*
  * Purpose: The three game difficulties. The Banana API does not have a difficulty setting.
  * Theme: Interoperability (our server adds the rules the external API does not provide)
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Keep these numbers the same as client/src/constants/gameModes.js.
  * The server is the authority: the React cards are only labels.

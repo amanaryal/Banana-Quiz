@@ -1,7 +1,6 @@
 /*
  * Purpose: Loads a puzzle from the Banana API, and checks a player's guess.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * GET  /api/puzzle does not require login, so you can see that the solution is still hidden.
  * POST /api/puzzle/answer requires login. The route file attaches requireAuth.

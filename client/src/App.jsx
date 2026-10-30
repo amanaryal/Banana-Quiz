@@ -1,7 +1,6 @@
 /*
  * Purpose: Chooses which page to show, and wraps the app in login state and toasts.
  * Theme: Virtual identity and event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';

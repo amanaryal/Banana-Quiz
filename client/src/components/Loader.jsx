@@ -1,7 +1,6 @@
 /*
  * Purpose: Loading text and grey placeholder bars.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 export function Loader({ label }) {

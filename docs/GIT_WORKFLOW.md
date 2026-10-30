@@ -1,7 +1,6 @@
 <!--
 Purpose: Explains how this project uses Git so the version-control theme is easy to show in the video.
 Theme: Version control
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Git workflow

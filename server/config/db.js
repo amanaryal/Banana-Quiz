@@ -1,7 +1,6 @@
 /*
  * Purpose: Opens the connection to MongoDB, where users and scores are stored.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 const mongoose = require('mongoose');

@@ -1,7 +1,6 @@
 <!--
 Purpose: How to run the automatic Postman tests for Banana Quiz.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Postman tests

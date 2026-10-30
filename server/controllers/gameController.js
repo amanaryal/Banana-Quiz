@@ -1,8 +1,6 @@
 /*
  * Purpose: Starts a 10-round game, checks guesses, gives hints, and saves the result.
  * Theme: Interoperability and virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
- *
  * The Banana API is only asked for a picture and a digit. Difficulty, the clock,
  * lives, hints, and points are decided here. The digit is never sent to the browser.
  */

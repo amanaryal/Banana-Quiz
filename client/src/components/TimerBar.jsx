@@ -1,7 +1,6 @@
 /*
  * Purpose: The countdown bar. Colour follows the time that is left.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 export default function TimerBar({ timeLeft, total }) {

@@ -1,7 +1,6 @@
 /*
  * Purpose: Makes a two-letter badge from a username.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 export function initials(name) {

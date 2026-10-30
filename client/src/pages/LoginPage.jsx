@@ -1,7 +1,6 @@
 /*
  * Purpose: Login form with a show-password toggle.
  * Theme: Virtual identity and event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { useEffect, useState } from 'react';

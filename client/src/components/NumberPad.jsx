@@ -1,7 +1,6 @@
 /*
  * Purpose: Big 0-9 buttons for a thumb on a phone.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 export default function NumberPad({ onDigit, onBackspace, onCheck, disabled }) {

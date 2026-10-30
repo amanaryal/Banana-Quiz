@@ -1,7 +1,6 @@
 <!--
 Purpose: Bullet notes for the 10-minute video. Not a script to read aloud.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Video notes

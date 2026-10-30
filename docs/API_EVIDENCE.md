@@ -1,7 +1,6 @@
 <!--
 Purpose: Records the real Banana API call, the reply, and two failures.
 Theme: Interoperability
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Banana API evidence

@@ -1,7 +1,6 @@
 /*
  * Purpose: Calls the Banana API and prints the real reply, plus two failures.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Run from the server folder: npm run test:banana
  * This script talks to the Banana API directly. The React app must not do that.

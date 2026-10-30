@@ -1,7 +1,6 @@
 /*
  * Purpose: Register, log in, log out, and report who is logged in.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Security choices:
  * - Passwords are hashed with bcrypt (10 salt rounds). MongoDB stores passwordHash, never the plain password.

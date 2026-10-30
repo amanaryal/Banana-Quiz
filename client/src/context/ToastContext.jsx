@@ -1,7 +1,6 @@
 /*
  * Purpose: Shows a short message at the bottom of the screen, then removes it.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { createContext, useContext, useState } from 'react';

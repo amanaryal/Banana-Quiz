@@ -1,7 +1,6 @@
 /*
  * Purpose: Turns a correct guess into points, and turns total points into a level.
  * Theme: Event-driven programming (the score is the result of a guess event)
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Example: Easy base is 10. A fast answer can add up to 5 time-bonus points.
  * Three correct answers in a row multiply by 1.5. Five in a row multiply by 2.

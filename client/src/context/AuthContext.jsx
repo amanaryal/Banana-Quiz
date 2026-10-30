@@ -1,7 +1,6 @@
 /*
  * Purpose: Remembers who is logged in, and shares that with every page.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * On load we call GET /api/auth/me. The cookie is sent automatically.
  * If the cookie is missing or expired, the server returns 401 and user stays null.

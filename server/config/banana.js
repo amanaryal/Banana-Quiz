@@ -1,7 +1,6 @@
 /*
  * Purpose: Holds the Banana API address and the time we are willing to wait.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The documentation page lists http://marcconrad.com/uob/banana/doc.php
  * and says the base URL is http://marcconrad.com/uob/banana/api.php.

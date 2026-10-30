@@ -2,7 +2,7 @@
   "name": "banana-quiz-client",
   "private": true,
   "version": "1.0.0",
-  "description": "React client for Banana Quiz. Themes: event-driven programming and virtual identity. Portions generated with AI assistance (Cursor) - reviewed and understood by the author.",
+  "description": "React client for Banana Quiz. Themes: event-driven programming and virtual identity.",
   "type": "module",
   "scripts": {
     "dev": "vite",

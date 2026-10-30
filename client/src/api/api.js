@@ -1,7 +1,6 @@
 /*
  * Purpose: Calls the Express server. This file never calls the Banana API.
  * Theme: Interoperability and virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * credentials: 'include' tells the browser to send the httpOnly login cookie.
  * The server CORS settings must allow this origin and credentials.

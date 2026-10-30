@@ -1,6 +1,5 @@
 # Purpose: Tells Git which files must never be saved in the repository.
 # Theme: Version control
-# Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 
 # Installed packages (recreated with npm install)
 node_modules/

@@ -1,7 +1,6 @@
 <!--
 Purpose: Week 8 checklist and short answers to practise out loud.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Week 8 presentation

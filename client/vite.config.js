@@ -2,7 +2,6 @@
  * Purpose: Vite settings for the React app. The dev server stays on port 5173,
  * which is the origin the Express CORS rule allows.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { defineConfig } from 'vite';

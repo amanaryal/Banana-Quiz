@@ -1,7 +1,6 @@
 /*
  * Purpose: Remembers each puzzle's correct digit on the server, for a short time.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The browser receives a puzzleId and the image only. It never receives the digit.
  * When the player submits a guess, we look the digit up here.

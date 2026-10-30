@@ -1,7 +1,6 @@
 /*
  * Purpose: Register form. Names with spaces are allowed. Any non-empty password is allowed.
  * Theme: Virtual identity and event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The plain password is sent once to our server, which hashes it. It is not stored in the browser.
  */

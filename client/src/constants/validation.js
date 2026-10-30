@@ -1,7 +1,6 @@
 /*
  * Purpose: Checks the register form with the same rules as the server.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * These rules must match validateNewUser in server/controllers/authController.js.
  */

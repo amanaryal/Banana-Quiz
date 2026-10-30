@@ -1,7 +1,6 @@
 /*
  * Purpose: A small dialog used for quit and logout confirmation.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 export default function Modal({ open, title, children, onClose }) {

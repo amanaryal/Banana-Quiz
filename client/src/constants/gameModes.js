@@ -1,7 +1,6 @@
 /*
  * Purpose: The same three difficulties as the server, used only to label the level cards.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The server decides the real timer, lives, and points. If these labels ever disagree
  * with server/config/gameModes.js, trust the server.

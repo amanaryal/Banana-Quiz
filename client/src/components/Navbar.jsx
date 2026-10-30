@@ -1,7 +1,6 @@
 /*
  * Purpose: Sidebar on a wide screen, and a bottom tab bar on a phone.
  * Theme: Virtual identity and event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { useEffect, useRef, useState } from 'react';

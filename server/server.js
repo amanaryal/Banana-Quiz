@@ -1,7 +1,6 @@
 /*
  * Purpose: Starts the Express server and mounts every route.
  * Theme: All four themes (this file connects the pieces)
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Routes:
  *   GET  /api/health

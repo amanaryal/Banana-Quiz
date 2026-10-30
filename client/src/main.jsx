@@ -1,7 +1,6 @@
 /*
  * Purpose: Starts React and draws the App component into the page.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import ReactDOM from 'react-dom/client';

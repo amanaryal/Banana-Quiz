@@ -1,7 +1,6 @@
 <!--
 Purpose: A running record of what changed and why, used for the week 9 feedback step.
 Theme: Version control
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Changelog

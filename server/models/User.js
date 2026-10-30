@@ -1,7 +1,6 @@
 /*
  * Purpose: Describes a user saved in MongoDB.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * passwordHash is the bcrypt hash. The plain password is never stored.
  */

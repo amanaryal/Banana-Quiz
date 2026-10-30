@@ -1,7 +1,6 @@
 /*
  * Purpose: Connects puzzle URLs to the puzzle controller.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 const express = require('express');

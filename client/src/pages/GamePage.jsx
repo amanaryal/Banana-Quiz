@@ -1,7 +1,6 @@
 /*
  * Purpose: The play screen. Timer, lives, number pad, hint, and quit.
  * Theme: Event-driven programming (the picture still comes from our server, not the Banana API)
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The countdown on screen is a guide. The server rejects a guess that arrives too late.
  */

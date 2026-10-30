@@ -1,8 +1,6 @@
 /*
  * Purpose: One finished game saved in MongoDB. A player can have many of these.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
- *
  * The old Score model was one row per user. That cannot store a history of games,
  * and its user field is unique in the database. New results go in this collection
  * instead, so old score rows are left untouched.

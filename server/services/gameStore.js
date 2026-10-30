@@ -1,7 +1,6 @@
 /*
  * Purpose: Remembers the game that is in progress for each logged-in player.
  * Theme: Interoperability and virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The correct digit stays in this memory. The browser only receives the picture.
  * One player has one active game. Restarting the server forgets unfinished games.

@@ -1,7 +1,6 @@
 /*
  * Purpose: Profile totals and the filtered top-10 leaderboard, read from finished games.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 const Game = require('../models/Game');

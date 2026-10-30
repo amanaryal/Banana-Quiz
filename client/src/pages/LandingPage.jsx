@@ -1,7 +1,6 @@
 /*
  * Purpose: The home page. Play now and three short steps.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { Link } from 'react-router-dom';

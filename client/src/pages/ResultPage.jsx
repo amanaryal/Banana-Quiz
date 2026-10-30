@@ -1,7 +1,6 @@
 /*
  * Purpose: Shows the saved result of one game.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';

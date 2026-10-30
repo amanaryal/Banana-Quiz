@@ -1,7 +1,6 @@
 /*
  * Purpose: Calls the external Banana API and turns the reply into a simple object.
  * Theme: Interoperability
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * The React app must not call this API. Only this server file does.
  */

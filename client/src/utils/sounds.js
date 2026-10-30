@@ -1,7 +1,6 @@
 /*
  * Purpose: Short beeps for correct, wrong, and game over. No sound files are used.
  * Theme: Event-driven programming
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  *
  * Mute is a display preference in localStorage. It is not part of the login.
  */

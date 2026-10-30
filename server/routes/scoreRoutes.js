@@ -1,7 +1,6 @@
 /*
  * Purpose: Connects score URLs to the score controller.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 const express = require('express');

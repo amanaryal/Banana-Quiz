@@ -1,7 +1,6 @@
 <!--
 Purpose: Test table for the demo. The Actual column is what was observed on 25 October 2026.
 Theme: All four themes
-Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
 -->
 
 # Testing

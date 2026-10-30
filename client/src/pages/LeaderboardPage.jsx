@@ -1,7 +1,6 @@
 /*
  * Purpose: Top 10 scores, with filters, a podium, and the signed-in player's rank.
  * Theme: Virtual identity
- * Portions generated with AI assistance (Cursor) - reviewed and understood by the author.
  */
 
 import { useEffect, useState } from 'react';
