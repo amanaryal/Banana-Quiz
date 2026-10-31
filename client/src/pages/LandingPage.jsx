@@ -20,8 +20,13 @@ export default function LandingPage() {
         </p>
         <div className="button-row">
           <Link className="button-link" to={user ? '/play' : '/login'}>Play now</Link>
-          <Link className="button-link secondary" to="/leaderboard">Leaderboard</Link>
+          <Link className="button-link secondary" to={user ? '/leaderboard' : '/login'}>Leaderboard</Link>
         </div>
+        {!user ? (
+          <p className="switch-link">
+            Have an account? <Link to="/login">Log in</Link> · New player? <Link to="/register">Register</Link>
+          </p>
+        ) : null}
       </div>
 
       <div className="hero-art" aria-hidden="true">

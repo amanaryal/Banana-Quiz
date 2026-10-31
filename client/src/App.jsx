@@ -4,7 +4,7 @@
  */
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
 import Navbar from './components/Navbar.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
@@ -17,29 +17,37 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import LeaderboardPage from './pages/LeaderboardPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 
+function Shell() {
+  const { user } = useAuth();
+
+  return (
+    <div className={user ? 'shell' : 'shell no-nav'}>
+      <Navbar />
+      <div className="main-col">
+        <main className="page">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/play" element={<ProtectedRoute><LevelSelectPage /></ProtectedRoute>} />
+            <Route path="/game" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
+            <Route path="/result" element={<ProtectedRoute><ResultPage /></ProtectedRoute>} />
+            <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            <Route path="*" element={<section className="card"><h1>Page not found</h1></section>} />
+          </Routes>
+        </main>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <AuthProvider>
       <ToastProvider>
         <BrowserRouter>
-          <div className="shell">
-            <Navbar />
-            <div className="main-col">
-              <main className="page">
-                <Routes>
-                  <Route path="/" element={<LandingPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
-                  <Route path="/play" element={<ProtectedRoute><LevelSelectPage /></ProtectedRoute>} />
-                  <Route path="/game" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
-                  <Route path="/result" element={<ProtectedRoute><ResultPage /></ProtectedRoute>} />
-                  <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage /></ProtectedRoute>} />
-                  <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-                  <Route path="*" element={<section className="card"><h1>Page not found</h1></section>} />
-                </Routes>
-              </main>
-            </div>
-          </div>
+          <Shell />
         </BrowserRouter>
       </ToastProvider>
     </AuthProvider>

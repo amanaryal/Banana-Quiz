@@ -54,6 +54,7 @@ export default function RegisterPage() {
 
   return (
     <section className="card auth-card">
+      <p className="eyebrow">🍌 Banana Quiz</p>
       <h1>Create an account</h1>
       <p className="lead">Use your name, an email, and any password you can remember. A short password is allowed.</p>
 

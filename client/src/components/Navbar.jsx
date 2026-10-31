@@ -68,18 +68,10 @@ export default function Navbar() {
     setDropdownOpen(false);
   }
 
-  const links = user ? (
-    <>
-      <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span> Play</NavLink>
-      <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span> Leaderboard</NavLink>
-      <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span> Profile</NavLink>
-    </>
-  ) : (
-    <>
-      <NavLink to="/login" onClick={closeMenus}><span aria-hidden="true">🔑</span> Login</NavLink>
-      <NavLink to="/register" onClick={closeMenus}><span aria-hidden="true">✎</span> Register</NavLink>
-    </>
-  );
+  // Do not render navbar on unauthenticated screens (login, register)
+  if (!user) {
+    return null;
+  }
 
   return (
     <>
@@ -87,7 +79,9 @@ export default function Navbar() {
         <Link className="brand" to="/" onClick={closeMenus}>🍌 Banana Quiz</Link>
         <nav className="side-links">
           <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span> Home</NavLink>
-          {links}
+          <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span> Play</NavLink>
+          <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span> Leaderboard</NavLink>
+          <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span> Profile</NavLink>
         </nav>
         <div className="side-foot">
           <button
@@ -99,18 +93,14 @@ export default function Navbar() {
           >
             {muted ? '🔇' : '🔊'}
           </button>
-          {user ? (
-            <button type="button" className="logout-link" onClick={() => setLogoutOpen(true)}>Logout</button>
-          ) : null}
+          <button type="button" className="logout-link" onClick={() => setLogoutOpen(true)}>Logout</button>
         </div>
       </aside>
 
-      {user ? (
-        <div className="top-user">
-          <span className="avatar" aria-hidden="true">{initials(user.username)}</span>
-          <span className="side-name">{user.username}</span>
-        </div>
-      ) : null}
+      <div className="top-user">
+        <span className="avatar" aria-hidden="true">{initials(user.username)}</span>
+        <span className="side-name">{user.username}</span>
+      </div>
 
       <header className="mobile-top">
         <Link className="brand" to="/" onClick={closeMenus}>🍌 Banana Quiz</Link>
@@ -124,45 +114,33 @@ export default function Navbar() {
           >
             {muted ? '🔇' : '🔊'}
           </button>
-          {user ? (
-            <div className="avatar-wrap" ref={menuRef}>
-              {/* EVENT: onClick (avatar) -> HANDLER: setDropdownOpen -> RESULT: profile menu opens */}
-              <button
-                type="button"
-                className="avatar"
-                aria-label={'Account menu for ' + user.username}
-                aria-expanded={dropdownOpen}
-                onClick={() => setDropdownOpen((open) => !open)}
-              >
-                {initials(user.username)}
-              </button>
-              {dropdownOpen ? (
-                <div className="dropdown" role="menu">
-                  <Link to="/profile" role="menuitem" onClick={closeMenus}>Profile</Link>
-                  <Link to="/leaderboard" role="menuitem" onClick={closeMenus}>Leaderboard</Link>
-                  <button type="button" role="menuitem" onClick={() => setLogoutOpen(true)}>Logout</button>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
+          <div className="avatar-wrap" ref={menuRef}>
+            {/* EVENT: onClick (avatar) -> HANDLER: setDropdownOpen -> RESULT: profile menu opens */}
+            <button
+              type="button"
+              className="avatar"
+              aria-label={'Account menu for ' + user.username}
+              aria-expanded={dropdownOpen}
+              onClick={() => setDropdownOpen((open) => !open)}
+            >
+              {initials(user.username)}
+            </button>
+            {dropdownOpen ? (
+              <div className="dropdown" role="menu">
+                <Link to="/profile" role="menuitem" onClick={closeMenus}>Profile</Link>
+                <Link to="/leaderboard" role="menuitem" onClick={closeMenus}>Leaderboard</Link>
+                <button type="button" role="menuitem" onClick={() => setLogoutOpen(true)}>Logout</button>
+              </div>
+            ) : null}
+          </div>
         </div>
       </header>
 
       <nav className="tab-bar" aria-label="Pages">
-        {user ? (
-          <>
-            <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
-            <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span>Play</NavLink>
-            <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span>Board</NavLink>
-            <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span>Me</NavLink>
-          </>
-        ) : (
-          <>
-            <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
-            <NavLink to="/login" onClick={closeMenus}><span aria-hidden="true">🔑</span>Login</NavLink>
-            <NavLink to="/register" onClick={closeMenus}><span aria-hidden="true">✎</span>Register</NavLink>
-          </>
-        )}
+        <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
+        <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span>Play</NavLink>
+        <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span>Board</NavLink>
+        <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span>Me</NavLink>
       </nav>
 
       <Modal open={logoutOpen} title="Log out?" onClose={() => setLogoutOpen(false)}>

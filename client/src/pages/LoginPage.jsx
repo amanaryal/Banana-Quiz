@@ -65,6 +65,7 @@ export default function LoginPage() {
 
   return (
     <section className="card auth-card">
+      <p className="eyebrow">🍌 Banana Quiz</p>
       <h1>Log in</h1>
       <p className="lead">Use the email and password from registration. Scores are saved only after you log in.</p>
       {notice ? <p className="message ok" role="status">{notice}</p> : null}
