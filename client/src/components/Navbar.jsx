@@ -76,9 +76,9 @@ export default function Navbar() {
   return (
     <>
       <aside className="sidebar">
-        <Link className="brand" to="/" onClick={closeMenus}>🍌 Banana Quiz</Link>
+        <Link className="brand" to="/home" onClick={closeMenus}>🍌 Banana Quiz</Link>
         <nav className="side-links">
-          <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span> Home</NavLink>
+          <NavLink to="/home" onClick={closeMenus}><span aria-hidden="true">🏠</span> Home</NavLink>
           <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span> Play</NavLink>
           <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span> Leaderboard</NavLink>
           <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span> Profile</NavLink>
@@ -103,7 +103,7 @@ export default function Navbar() {
       </div>
 
       <header className="mobile-top">
-        <Link className="brand" to="/" onClick={closeMenus}>🍌 Banana Quiz</Link>
+        <Link className="brand" to="/home" onClick={closeMenus}>🍌 Banana Quiz</Link>
         <div className="mobile-top-tools">
           <button
             type="button"
@@ -137,7 +137,7 @@ export default function Navbar() {
       </header>
 
       <nav className="tab-bar" aria-label="Pages">
-        <NavLink to="/" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
+        <NavLink to="/home" onClick={closeMenus}><span aria-hidden="true">🏠</span>Home</NavLink>
         <NavLink to="/play" onClick={closeMenus}><span aria-hidden="true">🎮</span>Play</NavLink>
         <NavLink to="/leaderboard" onClick={closeMenus}><span aria-hidden="true">🏆</span>Board</NavLink>
         <NavLink to="/profile" onClick={closeMenus}><span aria-hidden="true">👤</span>Me</NavLink>

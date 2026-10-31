@@ -3,7 +3,7 @@
  * Theme: Virtual identity and event-driven programming
  */
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -26,7 +26,8 @@ function Shell() {
       <div className="main-col">
         <main className="page">
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Navigate to={user ? "/home" : "/login"} replace />} />
+            <Route path="/home" element={<ProtectedRoute><LandingPage /></ProtectedRoute>} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/play" element={<ProtectedRoute><LevelSelectPage /></ProtectedRoute>} />

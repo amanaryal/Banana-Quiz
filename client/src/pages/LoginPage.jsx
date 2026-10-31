@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate('/play');
+      navigate('/home');
     }
   }, [loading, user, navigate]);
 
@@ -60,7 +60,7 @@ export default function LoginPage() {
     }
 
     setLoggedInUser(result.data.user);
-    navigate('/play');
+    navigate('/home');
   }
 
   return (
