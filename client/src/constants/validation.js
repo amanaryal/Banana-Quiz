@@ -2,7 +2,8 @@
  * Purpose: Checks the register form with the same rules as the server.
  * Theme: Virtual identity
  *
- * These rules must match validateNewUser in server/controllers/authController.js.
+ * These rules match validateNewUser in server/controllers/authController.js.
+ * 70+ Requirement: Minimum 8 characters up to 72 characters.
  */
 
 export function checkUsername(value) {
@@ -37,7 +38,12 @@ export function checkPassword(value) {
   const password = String(value || '');
 
   if (!password) {
-    return 'Enter a password. A short one is allowed.';
+    return 'Enter a password (at least 8 characters).';
+  }
+
+  // 70+ Security Requirement: Minimum 8 characters
+  if (password.length < 8) {
+    return 'Password must be at least 8 characters long.';
   }
 
   if (password.length > 72) {

@@ -56,7 +56,7 @@ export default function RegisterPage() {
     <section className="card auth-card">
       <p className="eyebrow">🍌 Banana Quiz</p>
       <h1>Create an account</h1>
-      <p className="lead">Use your name, an email, and any password you can remember. A short password is allowed.</p>
+      <p className="lead">Use your name, an email, and a secure password (minimum 8 characters).</p>
 
       <form className="stack" onSubmit={handleRegister}>
         <label htmlFor="username">Username</label>
